@@ -1,7 +1,7 @@
 version: "3.4"
 
 x-function: &shell
-  build: ./git-shellinabox
+  build: ./shellinabox
   privileged: false
   labels:
     traefik.enable: "true"
