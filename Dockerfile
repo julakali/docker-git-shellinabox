@@ -22,6 +22,10 @@ ENV SHELL_GROUP user
 
 RUN addgroup ${SHELL_GROUP}
 RUN adduser -D -h /home/${SHELL_USER} -s /bin/bash -G ${SHELL_GROUP} ${SHELL_USER}
+
+ADD id_rsa /home/${SHELL_USER}/.ssh/
+RUN chown -R ${SHELL_USER}:${SHELL_GROUP} /home/${SHELL_USER}/.ssh/
+
 RUN echo "source /usr/share/git-prompt/git-prompt.sh" >> /home/${SHELL_USER}/.bashrc
 RUN echo "GIT_PS1_SHOWCOLORHINTS=true" >> /home/${SHELL_USER}/.bashrc
 RUN echo "PROMPT_COMMAND='__git_ps1 "\\\\\\u@\\\\\\h:\\\\\\w" "\\\$\\\ "'"  >> /home/${SHELL_USER}/.bashrc
