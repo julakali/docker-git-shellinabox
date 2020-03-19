@@ -1,0 +1,193 @@
+version: "3.4"
+
+x-function: &shell
+  build: ./git-shellinabox
+  privileged: false
+  labels:
+    traefik.enable: "true"
+    # user/password, generate with echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g
+    traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+    traefik.port: 4200
+
+services:
+
+  proxy:
+    image: traefik:1.7
+    command:
+      #- --debug
+      - --accesslog=false
+      - --loglevel=INFO
+      - --entrypoints=Name:http Address::80
+#      - --entrypoints=Name:http Address::80 Redirect.Entrypoint:https
+#      - --entrypoints=Name:https Address::443 TLS
+      - --defaultentrypoints=http
+      - --docker=true
+      - --docker.endpoint=unix:///var/run/docker.sock
+      - --docker.watch=true
+      - --docker.exposedByDefault=false
+#      - --acme.email="email@domain.com"
+#      - --acme.storage=/ssl/acme.json
+#      - --acme.entrypoint=https
+#      - --acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --api
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+
+    labels:
+      traefik.api.port: 8080
+      traefik.api.frontend.rule: "HostRegexp: traefik.{domain:.+}"
+      traefik.port: 8080
+      traefik.enable: "true"
+    volumes:
+      - $PWD/ssl:/ssl
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+#    restart: always
+
+  shell1:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell1.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell2:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell2.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell3:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell3.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell4:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell4.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell5:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell5.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell6:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell6.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell7:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell7.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell8:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell8.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  shell9:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell9.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  # shell10:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell10.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  # shell11:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell11.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+  
+  # shell12:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell12.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  # shell13:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell13.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+                            
+  # shell14:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell14.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+                        
+  # shell15:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell15.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+                    
+  # shell16:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell16.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+                
+  # shell17:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell17.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+            
+  # shell18:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell18.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+        
+  # shell19:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell19.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+    
+  # shell20:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell20.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+
+  # shell21:
+  #   <<: *shell
+  #   labels:
+  #     traefik.enable: "true"
+  #     traefik.frontend.rule: "HostRegexp: shell21.{domain:.+}"
+  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
