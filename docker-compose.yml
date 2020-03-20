@@ -108,12 +108,12 @@ services:
       traefik.frontend.rule: "HostRegexp: shell9.{domain:.+}"
       traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
 
-  # shell10:
-  #   <<: *shell
-  #   labels:
-  #     traefik.enable: "true"
-  #     traefik.frontend.rule: "HostRegexp: shell10.{domain:.+}"
-  #     traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
+  shell10:
+    <<: *shell
+    labels:
+      traefik.enable: "true"
+      traefik.frontend.rule: "HostRegexp: shell10.{domain:.+}"
+      traefik.frontend.auth.basic.users: "git:$$apr1$$XlQkTSb8$$FiHeujvQiQnsbqYR3iMTD1"
 
   # shell11:
   #   <<: *shell
